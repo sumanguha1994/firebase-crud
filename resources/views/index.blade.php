@@ -63,7 +63,11 @@
 							<tr>
 								<td>{{$j + 1}}</td>
 								@for($k = 0;$k < count($columns);$k++)
-								<td>{{$values[$j][$columns[$k]]}}</td>
+									@if(strpos($values[$j][$columns[$k]], 'alt=media'))
+										<td><img src="{{$values[$j][$columns[$k]]}}" width="150px" height="100px"/></td>
+									@else
+										<td>{{$values[$j][$columns[$k]]}}</td>
+									@endif
 								@endfor
 								<td>
 									<a href="#!" onclick="addme()"><i class="fa fa-plus"></i></a> |
