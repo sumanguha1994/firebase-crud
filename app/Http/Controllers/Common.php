@@ -45,10 +45,10 @@ class Common extends Controller
                 $data['tblval'] = $request->tblname;
                 return \View::make('index', $data);
             }else{
-                return redirect()->to('/');
+                return redirect()->to('/dashboard');
             }
         }else{
-            return redirect()->to('/');
+            return redirect()->to('/dashboard');
         }
     }
 
@@ -61,7 +61,7 @@ class Common extends Controller
         $database = $factory->createDatabase();
         $createPost    =   $database->getReference($tblname)
                                 ->push($request->all());
-        return redirect()->to('/');
+        return redirect()->to('/dashboard');
     }
 
     public function show($tblname)
@@ -104,7 +104,7 @@ class Common extends Controller
         $tblname = $tblname.'/'.$updateid;
         $update = $database->getReference($tblname)
                             ->update($request->all());
-        return redirect()->to('/');
+        return redirect()->to('/dashboard');
     }
 
     public function destroy(Request $request)

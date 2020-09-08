@@ -11,3 +11,8 @@ Route::post('/update-entry', 'Common@update');
 
 Route::get('/create-table', 'Table@index');
 Route::post('/create-table-form', 'Table@store');
+
+Route::get('/file-upload', 'Fileupload@index');
+Route::post('/file-upload-form', 'Fileupload@store');
+Route::post('/get-upload-file-link', 'Fileupload@show');
+Route::post('/delete-upload-file', 'Fileupload@destroy');

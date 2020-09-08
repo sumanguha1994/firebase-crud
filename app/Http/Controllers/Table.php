@@ -29,7 +29,7 @@ class Table extends Controller
             $database = $factory->createDatabase();
             $createtbl = $database->getReference($tblname)
                                     ->push($request->all());
-            return redirect()->to('/');
+            return redirect()->to('/dashboard');
         }else{
             return redirect()->back();
         }
