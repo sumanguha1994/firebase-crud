@@ -54,6 +54,7 @@
                     <div id="kt_aside_menu" class="kt-aside-menu  kt-aside-menu--dropdown " data-ktmenu-vertical="1" data-ktmenu-dropdown="1" data-ktmenu-scroll="0">
                         <ul class="kt-menu__nav ">
                             <!-- users Control start-->
+                            @if(\Session::has('appname'))
                             <li title="Dynamic Table" class="kt-menu__item  kt-menu__item--submenu kt-menu__item--submenu-fullheight kt-menu__item--open kt-menu__item--here" aria-haspopup="true" data-ktmenu-submenu-toggle="click" data-ktmenu-dropdown-toggle-class="kt-aside-menu-overlay--on"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-layers"></i><span class="kt-menu__link-text">Table Create</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                                 <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                                     <div class="kt-menu__wrapper">
@@ -64,6 +65,8 @@
                                     </div>
                                 </div>
                             </li>
+                            @endif
+                            @if(\Session::has('appname'))
                             <li title="File Upload" class="kt-menu__item  kt-menu__item--submenu kt-menu__item--submenu-fullheight kt-menu__item--open kt-menu__item--here" aria-haspopup="true" data-ktmenu-submenu-toggle="click" data-ktmenu-dropdown-toggle-class="kt-aside-menu-overlay--on"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-image-file"></i><span class="kt-menu__link-text">File Upload</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                                 <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                                     <div class="kt-menu__wrapper">
@@ -74,6 +77,7 @@
                                     </div>
                                 </div>
                             </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -86,6 +90,7 @@
                 <div id="kt_header" class="kt-header kt-grid kt-grid--ver  kt-header--fixed ">
                     <!-- begin: Header Menu -->
                     <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
+                    @if(\Session::has('appname'))
                     <div class="kt-header-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_header_menu_wrapper">
                         <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout- ">
                             <ul class="kt-menu__nav ">
@@ -93,11 +98,12 @@
                             </ul>
                         </div>
                     </div>
+                    @endif
                     <!-- end: Header Menu -->
                     <!-- begin:: Header Topbar -->
                     <div class="kt-header__topbar">
                         <!--begin: Search -->
-                        <div class="kt-header__topbar-item kt-header__topbar-item--search">
+                        <!-- <div class="kt-header__topbar-item kt-header__topbar-item--search">
                             <div class="kt-header__topbar-wrapper">
                                 <div class="kt-quick-search kt-quick-search--inline kt-quick-search--result-compact" id="kt_quick_search_inline">
                                     <form method="get" class="kt-quick-search__form">
@@ -114,8 +120,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!--end: Search -->
+                        @if(\Session::has('appname'))
                         <div class="kt-header__topbar-item kt-header__topbar-item--user">
                             <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
                                 <span class="kt-hidden kt-header__topbar-welcome">Hi,</span>
@@ -153,6 +160,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
                 <!-- end:: Header -->

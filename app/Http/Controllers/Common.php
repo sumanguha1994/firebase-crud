@@ -8,10 +8,16 @@ use Kreait\Firebase\ServiceAccount;
 
 class Common extends Controller
 {
+    public $factory;
+    public function __construct()
+    {
+        $jsonfile = public_path('connection/'.\Session::get('appname'));
+        $this->factory = (new Factory)->withServiceAccount($jsonfile.'.json');
+    }
+
     public function index()
     {
-        $factory = (new Factory)->withServiceAccount(__DIR__.'/krc-update-firebase-adminsdk-dhal2-2a79a16e75.json');
-        $database = $factory->createDatabase();
+        $database = $this->factory->createDatabase();
         $tables   =   $database->getReference()->getSnapshot()->getValue();
         $data['tables'] = array_keys($tables);
         $data['columns'] = $data['values'] = $data['onlykeys'] = array();
@@ -22,10 +28,10 @@ class Common extends Controller
     public function create(Request $request)
     {
         if(!empty($request->tblname)){
-            $factory = (new Factory)->withServiceAccount(__DIR__.'/krc-update-firebase-adminsdk-dhal2-2a79a16e75.json');
-            $database = $factory->createDatabase();
+            $database = $this->factory->createDatabase();
             $tables   =   $database->getReference()->getSnapshot()->getValue();
             $keyvalues   =   $database->getReference($request->tblname)->getSnapshot()->getValue();
+            //->orderByKey()->limitToFirst(3)   for using limit first must be using orderBy() method 
             if(count($keyvalues) > 0){
                 ini_set('max_execution_time', 300);
                 set_time_limit(0);
@@ -57,8 +63,7 @@ class Common extends Controller
         $tblname = $request->tblname;
         $request->request->remove('_token');
         $request->request->remove('tblname');
-        $factory = (new Factory)->withServiceAccount(__DIR__.'/krc-update-firebase-adminsdk-dhal2-2a79a16e75.json');
-        $database = $factory->createDatabase();
+        $database = $this->factory->createDatabase();
         $createPost    =   $database->getReference($tblname)
                                 ->push($request->all());
         return redirect()->to('/dashboard');
@@ -66,8 +71,7 @@ class Common extends Controller
 
     public function show($tblname)
     {
-        $factory = (new Factory)->withServiceAccount(__DIR__.'/krc-update-firebase-adminsdk-dhal2-2a79a16e75.json');
-        $database = $factory->createDatabase();
+        $database = $this->factory->createDatabase();
         $tables   =   $database->getReference()->getSnapshot()->getValue();
         $keyvalues   =   $database->getReference($tblname)->getSnapshot()->getValue();
         foreach($keyvalues as $key => $kv)
@@ -79,8 +83,7 @@ class Common extends Controller
 
     public function edit(Request $request)
     {
-        $factory = (new Factory)->withServiceAccount(__DIR__.'/krc-update-firebase-adminsdk-dhal2-2a79a16e75.json');
-        $database = $factory->createDatabase();
+        $database = $this->factory->createDatabase();
         $tblname = $request->tblname.'/'.$request->editid;
         $keyvalues   =   $database->getReference($tblname)->getSnapshot()->getValue();
         foreach($keyvalues as $key => $kv)
@@ -99,8 +102,7 @@ class Common extends Controller
         $request->request->remove('_token');
         $request->request->remove('updateid');
         $request->request->remove('tblname');
-        $factory = (new Factory)->withServiceAccount(__DIR__.'/krc-update-firebase-adminsdk-dhal2-2a79a16e75.json');
-        $database = $factory->createDatabase();
+        $database = $this->factory->createDatabase();
         $tblname = $tblname.'/'.$updateid;
         $update = $database->getReference($tblname)
                             ->update($request->all());
@@ -109,8 +111,7 @@ class Common extends Controller
 
     public function destroy(Request $request)
     {
-        $factory = (new Factory)->withServiceAccount(__DIR__.'/krc-update-firebase-adminsdk-dhal2-2a79a16e75.json');
-        $database = $factory->createDatabase();
+        $database = $this->factory->createDatabase();
         $tblname = $request->tblname.'/'.$request->delid;
         $database->getReference($tblname)->remove();
         return response()->json(true);

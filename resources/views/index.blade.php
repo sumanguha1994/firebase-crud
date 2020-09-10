@@ -125,6 +125,9 @@
             method:"POST",
             data: data,
             dataType:"json",
+			beforeSend: function() {
+				'Loding...';	
+			},
             success:function(data){
             	location.reload();
             },
@@ -174,6 +177,9 @@
             method:"POST",
             data: data,
             dataType:"json",
+			beforeSend: function() {
+				'Loding...';	
+			},
             success:function(data){
             	$('#userForm').trigger("reset");
 				$('#formModal').modal("show");

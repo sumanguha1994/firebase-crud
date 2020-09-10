@@ -9,6 +9,13 @@ use Kreait\Firebase\Storage;
 
 class Fileupload extends Controller
 {
+    public $factory;
+    public function __construct()
+    {
+        $jsonfile = public_path('connection/'.\Session::get('appname'));
+        $this->factory = (new Factory)->withServiceAccount($jsonfile.'.json');
+    }
+
     public function index()
     {
         return \View::make('fileupload');
@@ -31,8 +38,7 @@ class Fileupload extends Controller
 
             $uploadfile = fopen(public_path($fullpath), 'r');
 
-            $factory = (new Factory)->withServiceAccount(__DIR__.'/krc-update-firebase-adminsdk-dhal2-2a79a16e75.json');
-            $storage = $factory->createStorage();
+            $storage = $this->factory->createStorage();
             $storage->getBucket()
                         ->upload($uploadfile, ['name' => $firebase_storage_path.'/'.$file->getClientOriginalName()]);
             unlink(public_path($fullpath));
@@ -45,8 +51,7 @@ class Fileupload extends Controller
     public function show(Request $request)
     {
         $expiresAt = new \DateTime('tomorrow');
-        $factory = (new Factory)->withServiceAccount(__DIR__.'/krc-update-firebase-adminsdk-dhal2-2a79a16e75.json');
-        $storage = $factory->createStorage();
+        $storage = $this->factory->createStorage();
         $imageReference = $storage->getBucket()
                                     ->object($request->bucketname.'/'.$request->uploadfilename);
         if($imageReference->exists()){
@@ -70,8 +75,7 @@ class Fileupload extends Controller
     public function destroy(Request $request)
     {
         $expiresAt = new \DateTime('tomorrow');
-        $factory = (new Factory)->withServiceAccount(__DIR__.'/krc-update-firebase-adminsdk-dhal2-2a79a16e75.json');
-        $storage = $factory->createStorage();
+        $storage = $this->factory->createStorage();
         $imageReference = $storage->getBucket()
                                     ->object($request->bucketname.'/'.$request->uploadfilename)->delete();
         return response()->json(true);

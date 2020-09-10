@@ -8,6 +8,13 @@ use Kreait\Firebase\ServiceAccount;
 
 class Table extends Controller
 {
+    public $factory;
+    public function __construct()
+    {
+        $jsonfile = public_path('connection/'.\Session::get('appname'));
+        $this->factory = (new Factory)->withServiceAccount($jsonfile.'.json');
+    }
+
     public function index()
     {
         return \View::make('table');
@@ -25,8 +32,7 @@ class Table extends Controller
             $values = array();
             $request->request->remove('_token');
             $request->request->remove('tablename');
-            $factory = (new Factory)->withServiceAccount(__DIR__.'/krc-update-firebase-adminsdk-dhal2-2a79a16e75.json');
-            $database = $factory->createDatabase();
+            $database = $this->factory->createDatabase();
             $createtbl = $database->getReference($tblname)
                                     ->push($request->all());
             return redirect()->to('/dashboard');
@@ -50,8 +56,10 @@ class Table extends Controller
         //
     }
 
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        \Session::forget('appname');
+        \Session::flush();
+        return redirect()->to('init');
     }
 }
