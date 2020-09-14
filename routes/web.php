@@ -19,5 +19,9 @@ Route::group(['middleware' => 'appname'], function(){
     Route::post('/get-upload-file-link', 'Fileupload@show');
     Route::post('/delete-upload-file', 'Fileupload@destroy');
 
+    Route::get('/web-send-notification', 'Notification@index');
+    Route::post('/create-web-Notification-form', 'Notification@store');
+    Route::get('/send-notification', 'Notification@create');
+
     Route::get('/logout', 'Table@destroy');
 });

@@ -78,6 +78,19 @@
                                 </div>
                             </li>
                             @endif
+                            @if(\Session::has('appname'))
+                            <li title="Push Notification" class="kt-menu__item  kt-menu__item--submenu kt-menu__item--submenu-fullheight kt-menu__item--open kt-menu__item--here" aria-haspopup="true" data-ktmenu-submenu-toggle="click" data-ktmenu-dropdown-toggle-class="kt-aside-menu-overlay--on"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon-responsive"></i><span class="kt-menu__link-text">Send Notification</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+                                    <div class="kt-menu__wrapper">
+                                        <ul class="kt-menu__subnav">
+                                            <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--submenu-fullheight" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Send Notification</span></span></li>
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('web-send-notification') }}" class="kt-menu__link "><span class="kt-menu__link-text">Web Notification</span></a></li>
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('send-notification') }}" class="kt-menu__link "><span class="kt-menu__link-text">Mobile Notification</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
